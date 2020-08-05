@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import Notes from '../components/Notes';
+import NotesList from '../components/NotesList';
 import { Context } from '../context/NoteContext';
+import NotesDetail from '../components/NotesDetails';
 
 const HomeScreen = ({ navigation }) => {
   const { state } = useContext(Context);
@@ -10,16 +11,14 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View>
       <Text>Home</Text>
-      <Button title="edit" onPress={() => navigation.navigate('Edit')} />
+      <Button title="add" onPress={() => navigation.navigate('Create')} />
       <FlatList
         data={state}
         keyExtractor={(data) => data.title}
         renderItem={({ item }) => {
           return (
             <View>
-              <Text>
-                title =={item.title} content == {item.content}
-              </Text>
+              <NotesDetail id={item.id} />
             </View>
           );
         }}
