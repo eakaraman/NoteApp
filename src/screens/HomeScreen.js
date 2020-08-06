@@ -13,9 +13,10 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View>
       <Text>Home</Text>
+
       <FlatList
         data={state}
-        keyExtractor={(data) => data.title}
+        keyExtractor={(data) => data.id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity

@@ -4,10 +4,13 @@ import createNoteContext from './createNoteContext';
 const noteReducer = (state, action) => {
   switch (action.type) {
     case 'addNote':
+      const id = generateID(state, Math.floor(Math.random() * 999999));
+      const idString = id.toString(); // keyextractor string istiyor
+      console.log(idString.type);
       return [
         ...state,
         {
-          id: Math.floor(Math.random() * 9999999),
+          id: idString,
           title: action.payload.title,
           content: action.payload.content,
         },
@@ -17,6 +20,15 @@ const noteReducer = (state, action) => {
     default:
       return state;
   }
+};
+
+const generateID = (state, id) => {
+  const map = state.map((note) => {
+    return note.id === id;
+  });
+  if (map.includes(true)) return generateID(state, id + 1);
+  //duplicate id
+  else return id;
 };
 
 const addNote = (dispatch) => {
@@ -36,7 +48,7 @@ export const { Context, Provider } = createNoteContext(
   noteReducer,
   { addNote, deleteNote },
   [
-    { id: 1, title: 'testpost', content: 'testPostcon' },
-    { id: 2, title: 'testpost2', content: 'testPostcon2' },
+    { id: '1', title: 'testpost', content: 'testPostcon' },
+    { id: '2', title: 'testpost2', content: 'testPostcon2' },
   ]
 );
