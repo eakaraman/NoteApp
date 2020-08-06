@@ -17,7 +17,7 @@ const NotesDetail = ({ id }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    marginLeft: 6,
   },
 });
 

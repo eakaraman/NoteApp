@@ -12,6 +12,8 @@ const noteReducer = (state, action) => {
           content: action.payload.content,
         },
       ];
+    case 'deleteNote':
+      return state.filter((note) => note.id !== action.payload.id);
     default:
       return state;
   }
@@ -24,8 +26,17 @@ const addNote = (dispatch) => {
   };
 };
 
+const deleteNote = (dispatch) => {
+  return (id) => {
+    dispatch({ type: 'deleteNote', payload: { id } });
+  };
+};
+
 export const { Context, Provider } = createNoteContext(
   noteReducer,
-  { addNote },
-  [{ id: 1, title: 'testpost', content: 'testPostcon' }]
+  { addNote, deleteNote },
+  [
+    { id: 1, title: 'testpost', content: 'testPostcon' },
+    { id: 2, title: 'testpost2', content: 'testPostcon2' },
+  ]
 );

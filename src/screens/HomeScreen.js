@@ -1,25 +1,38 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import NotesList from '../components/NotesList';
 import { Context } from '../context/NoteContext';
 import NotesDetail from '../components/NotesDetails';
+import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 const HomeScreen = ({ navigation }) => {
-  const { state } = useContext(Context);
+  const { state, deleteNote } = useContext(Context);
 
   return (
     <View>
       <Text>Home</Text>
-      <Button title="add" onPress={() => navigation.navigate('Create')} />
       <FlatList
         data={state}
         keyExtractor={(data) => data.title}
         renderItem={({ item }) => {
           return (
-            <View>
-              <NotesDetail id={item.id} />
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Edit', { id: item.id })}
+            >
+              <View style={styles.row}>
+                <NotesDetail id={item.id} />
+                <TouchableOpacity onPress={() => deleteNote(item.id)}>
+                  <MaterialIcons
+                    style={styles.icon}
+                    name="delete"
+                    size={27}
+                    color="black"
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
@@ -27,6 +40,27 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+HomeScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate('Create')}>
+        <AntDesign name="plussquareo" size={24} color="black" />
+      </TouchableOpacity>
+    ),
+  };
+};
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    alignItems: 'center',
+    marginBottom: 10,
+    borderRadius: 5,
+    marginHorizontal: 10,
+  },
+  icon: {},
+});
 
 export default HomeScreen;

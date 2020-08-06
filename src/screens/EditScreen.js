@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const EditScreen = () => {
+const EditScreen = ({ navigation }) => {
+  const id = navigation.getParam('id');
   return (
     <View>
-      <Text>Edit</Text>
+      <Text>Edit --- {id} </Text>
     </View>
   );
 };
