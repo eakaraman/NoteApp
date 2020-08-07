@@ -45,7 +45,7 @@ HomeScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate('Create')}>
-        <AntDesign name="plussquareo" size={24} color="black" />
+        <AntDesign name="plussquareo" size={27} color="black" />
       </TouchableOpacity>
     ),
   };
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5,
     marginHorizontal: 10,
+    borderColor: 'gray',
   },
   icon: {},
 });

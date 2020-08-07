@@ -17,6 +17,10 @@ const noteReducer = (state, action) => {
       ];
     case 'deleteNote':
       return state.filter((note) => note.id !== action.payload.id);
+    case 'editNote':
+      return state.map((note) => {
+        return note.id === action.payload.id ? action.payload : note; ///check here again
+      });
     default:
       return state;
   }
@@ -44,9 +48,16 @@ const deleteNote = (dispatch) => {
   };
 };
 
+const editNote = (dispatch) => {
+  return (id, title, content, callback) => {
+    dispatch({ type: 'editNote', payload: { id, title, content } });
+    if (callback) callback();
+  };
+};
+
 export const { Context, Provider } = createNoteContext(
   noteReducer,
-  { addNote, deleteNote },
+  { addNote, deleteNote, editNote },
   [
     { id: '1', title: 'testpost', content: 'testPostcon' },
     { id: '2', title: 'testpost2', content: 'testPostcon2' },
