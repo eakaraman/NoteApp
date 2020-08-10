@@ -7,8 +7,8 @@ const NoteForm = ({ onSubmit, initialValues }) => {
   const [title, setTitle] = useState(initialValues.title);
   const [content, setContent] = useState(initialValues.content);
   return (
-    <View>
-      <Text>Text</Text>
+    <View style={styles.container}>
+      <Text>Title</Text>
       <TextInput
         style={styles.input}
         value={title}
@@ -17,7 +17,7 @@ const NoteForm = ({ onSubmit, initialValues }) => {
       <Text>Content</Text>
       <TextInput
         multiline={true}
-        style={styles.input}
+        style={styles.contentInput}
         value={content}
         onChangeText={(text) => setContent(text)}
       />
@@ -36,6 +36,14 @@ NoteForm.defaultProps = {
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
+    paddingLeft: 5,
+  },
+  contentInput: {
+    borderWidth: 1,
+    paddingLeft: 5,
+  },
+  container: {
+    padding: 15,
   },
 });
 
