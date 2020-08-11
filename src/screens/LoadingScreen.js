@@ -11,7 +11,7 @@ const LoadingScreen = ({ navigation }) => {
   const checkifLoggedin = () => {
     firebase.auth().onAuthStateChanged(
       function (user) {
-        console.log('*******user**********', user);
+        //console.log('*******user**********', user);
         if (user) navigation.navigate('Home');
         else navigation.navigate('Login');
       }.bind(this)

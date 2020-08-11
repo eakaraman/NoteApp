@@ -2,8 +2,28 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
-import { cos } from 'react-native-reanimated';
+
 const LoginScreen = () => {
+  const signInWithGoogleAsync = async () => {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId:
+          '644574779457-75sjkl5flnh5ikqvbnpoqp04dc27pu9n.apps.googleusercontent.com',
+        //behavior: 'web',
+        //iosClientId: YOUR_CLIENT_ID_HERE,
+        scopes: ['profile', 'email'],
+      });
+
+      if (result.type === 'success') {
+        onSignIn(result);
+        return result.accessToken;
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
+  };
   const isUserEqual = (googleUser, firebaseUser) => {
     if (firebaseUser) {
       var providerData = firebaseUser.providerData;
@@ -97,27 +117,6 @@ const LoginScreen = () => {
           console.log('User already signed-in Firebase.');
         }
       });
-  };
-
-  const signInWithGoogleAsync = async () => {
-    try {
-      const result = await Google.logInAsync({
-        androidClientId:
-          '644574779457-75sjkl5flnh5ikqvbnpoqp04dc27pu9n.apps.googleusercontent.com',
-        //behavior: 'web',
-        //iosClientId: YOUR_CLIENT_ID_HERE,
-        scopes: ['profile', 'email'],
-      });
-
-      if (result.type === 'success') {
-        onSignIn(result);
-        return result.accessToken;
-      } else {
-        return { cancelled: true };
-      }
-    } catch (e) {
-      return { error: true };
-    }
   };
 
   const signinWithEmail = async (email, password) => {

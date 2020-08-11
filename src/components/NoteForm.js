@@ -6,6 +6,7 @@ import { Context } from '../context/NoteContext';
 const NoteForm = ({ onSubmit, initialValues }) => {
   const [title, setTitle] = useState(initialValues.title);
   const [content, setContent] = useState(initialValues.content);
+
   return (
     <View style={styles.container}>
       <Text>Title</Text>

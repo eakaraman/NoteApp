@@ -6,7 +6,7 @@ const noteReducer = (state, action) => {
     case 'addNote':
       const id = generateID(state, Math.floor(Math.random() * 999999));
       const idString = id.toString(); // keyextractor string istiyor
-      console.log(idString.type);
+      // console.log(idString.type);
       return [
         ...state,
         {

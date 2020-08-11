@@ -19,7 +19,11 @@ const EditScreen = ({ navigation }) => {
     </View>
   );
 };
-
+EditScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft: () => {},
+  };
+};
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,

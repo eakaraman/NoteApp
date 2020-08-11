@@ -48,6 +48,7 @@ HomeScreen.navigationOptions = ({ navigation }) => {
         <AntDesign name="plussquareo" size={27} color="black" />
       </TouchableOpacity>
     ),
+    headerLeft: () => {},
   };
 };
 
