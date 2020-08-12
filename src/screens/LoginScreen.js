@@ -77,10 +77,6 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
-  const onSignInEmail = (googleUser, email, password) => {
-    firebase.auth().createUserWithEmailAndPassword(email, password);
-  };
-
   const onSignIn = (googleUser) => {
     //console.log('Google Auth Response', googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
@@ -125,14 +121,6 @@ const LoginScreen = ({ navigation }) => {
       firebase.auth().signInWithEmailAndPassword(email, password);
     } catch (error) {
       alert(error);
-    }
-  };
-  const signUp = () => {
-    try {
-      if (password.length < 6) alert('atleast six chareacter');
-      else firebase.auth().createUserWithEmailAndPassword(email, password);
-    } catch (error) {
-      console.log(error);
     }
   };
 
