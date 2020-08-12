@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
+import { TextInput } from 'react-native-gesture-handler';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
@@ -119,35 +120,53 @@ const LoginScreen = () => {
       });
   };
 
-  const signinWithEmail = async (email, password) => {
+  const signinWithEmail = (email, password) => {
     try {
-      const result = await Google.logInAsync({
-        androidClientId:
-          '1042031039130-he3u5s1qglrm59ilq6jn57o973jjoa6g.apps.googleusercontent.com',
-        //behavior: 'web',
-        //iosClientId: YOUR_CLIENT_ID_HERE,
-        scopes: ['profile', 'email'],
-      });
-
-      if (result.type === 'success') {
-        onSignInEmail(result, email.password);
-        return result.accessToken;
-      } else {
-        return { cancelled: true };
-      }
-    } catch (e) {
-      return { error: true };
+      firebase.auth().signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      alert(error);
+    }
+  };
+  const signUp = () => {
+    try {
+      if (password.length < 6) alert('atleast six chareacter');
+      else firebase.auth().createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.log(error);
     }
   };
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View>
-      <Text>LoginScreen</Text>
+      <Text>Email</Text>
+      <TextInput
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        style={styles.input}
+      />
+      <Text>Password</Text>
+      <TextInput
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        style={styles.input}
+      />
+      <Button
+        title="sign In"
+        onPress={() => signinWithEmail(email, password)}
+      />
       <Button title="sign in google" onPress={() => signInWithGoogleAsync()} />
+      <Button title="sgn up" onPress={() => navigation.navigate('Signup')} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 1,
+  },
+});
 
 export default LoginScreen;

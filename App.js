@@ -9,6 +9,7 @@ import { Provider } from './src/context/NoteContext';
 import CreateScreen from './src/screens/CreateScreen';
 import LoadingScreen from './src/screens/LoadingScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -19,6 +20,7 @@ const navigator = createStackNavigator(
     Edit: EditScreen,
     Create: CreateScreen,
     Login: LoginScreen,
+    Signup: SignUpScreen,
   },
   {
     initialRouteName: 'Loading',

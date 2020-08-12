@@ -6,6 +6,7 @@ import { Context } from '../context/NoteContext';
 import NotesDetail from '../components/NotesDetails';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import firebase from 'firebase';
 
 const HomeScreen = ({ navigation }) => {
   const { state, deleteNote } = useContext(Context);
@@ -37,6 +38,7 @@ const HomeScreen = ({ navigation }) => {
           );
         }}
       />
+      <Button title="signout" onPress={() => firebase.auth().signOut()} />
     </View>
   );
 };
