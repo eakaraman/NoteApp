@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
         .database()
         .ref('users/' + result.user.uid)
         .set({
-          gmail: result.additionalUserInfo.profile.email,
+          email: result.additionalUserInfo.profile.email,
           profile_picture: result.additionalUserInfo.profile.picture,
           locale: result.additionalUserInfo.profile.locale,
           first_name: result.additionalUserInfo.profile.given_name,

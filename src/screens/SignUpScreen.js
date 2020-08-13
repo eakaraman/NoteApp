@@ -3,39 +3,40 @@ import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import firebase from 'firebase';
 
 const SignUpScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [name, setName] = useState('');
+  // const [surname, setSurame] = useState('');
+  const [info, setInfo] = useState({});
 
-  const addToDatabase = (result) => {
+  const addToDatabase = (info) => {
+    const user = firebase.auth().currentUser;
     firebase
       .database()
-      .ref('users/' + result.user.uid)
+      .ref('users/' + user.uid)
       .set({
-        gmail: result.additionalUserInfo.profile.email,
-        profile_picture: result.additionalUserInfo.profile.picture,
-        locale: result.additionalUserInfo.profile.locale,
-        first_name: result.additionalUserInfo.profile.given_name,
-        last_name: result.additionalUserInfo.profile.family_name,
-        created_at: Date.now(),
+        email: info.email,
+        first_name: info.name,
+        last_name: info.surname,
+        created_at: user.createdAt,
       })
       .then((snapshot) => {
         console.log('snapshot', snapshot);
       });
   };
 
-  const signUp = (email, password, name) => {
-    if (password.length < 6) alert('atleast six chareacter');
+  const signUp = (info) => {
+    if (info.password.length < 6) alert('atleast six chareacter');
     else {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(info.email, info.password)
         .then(() => {
           const user = firebase.auth().currentUser;
           user
-            .updateProfile({ displayName: name })
-            .then(() => console.log(firebase.auth().currentUser.uid));
-          //console.log(user);
+            .updateProfile({ displayName: 'denemedisplay' })
+            .then(() => addToDatabase(info));
+          console.log(user);
         })
         .catch(function (error) {
           // Handle Errors here.
@@ -50,28 +51,38 @@ const SignUpScreen = () => {
         });
     }
   };
-
+  const signUp2 = (info) => {
+    console.log(info.name, info.password);
+  };
   return (
     <View>
       <Text>Signnup</Text>
-      <Text>Email</Text>
+      <Text style={styles.text}>Name</Text>
       <TextInput
-        value={email}
-        onChangeText={(text) => setEmail(text)}
+        value={info.name}
+        onChangeText={(text) => setInfo({ ...info, name: text })}
         style={styles.input}
       />
-      <Text>Password</Text>
+      <Text style={styles.text}>Surname</Text>
       <TextInput
-        value={password}
-        onChangeText={(text) => setPassword(text)}
+        value={info.surname}
+        onChangeText={(text) => setInfo({ ...info, surname: text })}
         style={styles.input}
       />
+      <Text style={styles.text}>Email</Text>
       <TextInput
-        value={name}
-        onChangeText={(text) => setName(text)}
+        value={info.email}
+        onChangeText={(text) => setInfo({ ...info, email: text })}
         style={styles.input}
       />
-      <Button title="sign Up" onPress={() => signUp(email, password)} />
+      <Text style={styles.text}>Password</Text>
+      <TextInput
+        value={info.password}
+        onChangeText={(text) => setInfo({ ...info, password: text })}
+        style={styles.input}
+      />
+
+      <Button title="sign Up" onPress={() => signUp(info)} />
     </View>
   );
 };
@@ -80,6 +91,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
   },
+  text: { fontSize: 20 },
 });
 
 export default SignUpScreen;
