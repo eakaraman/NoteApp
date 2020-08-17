@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import NotesList from '../components/NotesList';
@@ -9,11 +9,15 @@ import { AntDesign } from '@expo/vector-icons';
 import firebase from 'firebase';
 
 const HomeScreen = ({ navigation }) => {
-  const { state, deleteNote } = useContext(Context);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    setUser(firebase.auth().currentUser);
+  });
 
+  const { state, deleteNote } = useContext(Context);
   return (
     <View>
-      <Text>Home</Text>
+      <Text style={styles.welcome}>Welcome {user.displayName}</Text>
 
       <FlatList
         data={state}
@@ -66,6 +70,10 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
   },
   icon: {},
+  welcome: {
+    fontSize: 20,
+    alignSelf: 'center',
+  },
 });
 
 export default HomeScreen;

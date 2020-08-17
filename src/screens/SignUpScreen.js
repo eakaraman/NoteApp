@@ -11,6 +11,11 @@ const SignUpScreen = () => {
 
   const addToDatabase = (info) => {
     const user = firebase.auth().currentUser;
+    // console.log('********************');
+    // console.log(user);
+    // console.log('********************');
+    // console.log(user.displayName, user.createdAt.toString());
+
     firebase
       .database()
       .ref('users/' + user.uid)
@@ -18,7 +23,7 @@ const SignUpScreen = () => {
         email: info.email,
         first_name: info.name,
         last_name: info.surname,
-        created_at: user.createdAt,
+        created_at: Date.now(),
       })
       .then((snapshot) => {
         console.log('snapshot', snapshot);
@@ -33,10 +38,10 @@ const SignUpScreen = () => {
         .createUserWithEmailAndPassword(info.email, info.password)
         .then(() => {
           const user = firebase.auth().currentUser;
-          user
-            .updateProfile({ displayName: 'denemedisplay' })
-            .then(() => addToDatabase(info));
-          console.log(user);
+          user.updateProfile({ displayName: info.name }).then(() => {
+            console.log('***********', user);
+            addToDatabase(info);
+          });
         })
         .catch(function (error) {
           // Handle Errors here.
@@ -51,9 +56,7 @@ const SignUpScreen = () => {
         });
     }
   };
-  const signUp2 = (info) => {
-    console.log(info.name, info.password);
-  };
+
   return (
     <View>
       <Text>Signnup</Text>
