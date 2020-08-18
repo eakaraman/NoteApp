@@ -43,6 +43,10 @@ const HomeScreen = ({ navigation }) => {
         }}
       />
       <Button title="signout" onPress={() => firebase.auth().signOut()} />
+      <Button
+        title="user"
+        onPress={() => console.log(firebase.auth().currentUser)}
+      />
     </View>
   );
 };

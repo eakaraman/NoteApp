@@ -40,7 +40,10 @@ const SignUpScreen = () => {
           const user = firebase.auth().currentUser;
           user.updateProfile({ displayName: info.name }).then(() => {
             console.log('***********', user);
-            addToDatabase(info);
+            user.sendEmailVerification().then(() => {
+              console.log('email sent');
+              addToDatabase(info);
+            });
           });
         })
         .catch(function (error) {
@@ -80,6 +83,7 @@ const SignUpScreen = () => {
       />
       <Text style={styles.text}>Password</Text>
       <TextInput
+        secureTextEntry={true}
         value={info.password}
         onChangeText={(text) => setInfo({ ...info, password: text })}
         style={styles.input}

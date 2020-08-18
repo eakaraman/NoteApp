@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase';
 import { TextInput } from 'react-native-gesture-handler';
+import MyButton from '../components/MyButton';
 
 const LoginScreen = ({ navigation }) => {
   const signInWithGoogleAsync = async () => {
@@ -128,15 +129,16 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   return (
-    <View>
-      <Text>Email</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Email</Text>
       <TextInput
         value={email}
         onChangeText={(text) => setEmail(text)}
         style={styles.input}
       />
-      <Text>Password</Text>
+      <Text style={styles.text}>Password</Text>
       <TextInput
+        secureTextEntry={true}
         value={password}
         onChangeText={(text) => setPassword(text)}
         style={styles.input}
@@ -145,15 +147,36 @@ const LoginScreen = ({ navigation }) => {
         title="sign In"
         onPress={() => signinWithEmail(email, password)}
       />
-      <Button title="sign in google" onPress={() => signInWithGoogleAsync()} />
+      <Button
+        style={styles.button}
+        title="sign in google"
+        onPress={() => signInWithGoogleAsync()}
+      />
       <Button title="sgn up" onPress={() => navigation.navigate('Signup')} />
+      <MyButton title="sign Up" onPress={() => console.log('button')} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderWidth: 2,
+    borderColor: 'red',
+    justifyContent: 'center',
+  },
   input: {
     borderWidth: 1,
+    paddingLeft: 5,
+    marginHorizontal: 5,
+    fontSize: 15,
+  },
+  text: {
+    marginLeft: 5,
+    fontSize: 18,
+  },
+  button: {
+    marginHorizontal: 5,
   },
 });
 
