@@ -62,45 +62,45 @@ const HomeScreen = ({ navigation }) => {
   const { state, deleteNote } = useContext(Context);
   return (
     <View>
-      <MenuDrawer
+      {/* <MenuDrawer
         open={state.open}
         drawerContent={drawerContent()}
         drawerPercentage={45}
         animationTime={250}
         overlay={true}
         opacity={0.4}
-      >
-        <Text style={styles.welcome}>Welcome {user.displayName}</Text>
+      > */}
+      <Text style={styles.welcome}>Welcome {user.displayName}</Text>
 
-        <FlatList
-          data={state}
-          keyExtractor={(data) => data.id}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate('Edit', { id: item.id })}
-              >
-                <View style={styles.row}>
-                  <NotesDetail id={item.id} />
-                  <TouchableOpacity onPress={() => deleteNote(item.id)}>
-                    <MaterialIcons
-                      style={styles.icon}
-                      name="delete"
-                      size={27}
-                      color="black"
-                    />
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-        {/* <Button title="signout" onPress={() => firebase.auth().signOut()} />
-        <Button
-          title="user"
-          onPress={() => console.log(firebase.auth().currentUser)}
-        /> */}
-      </MenuDrawer>
+      <FlatList
+        data={state}
+        keyExtractor={(data) => data.id}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Edit', { id: item.id })}
+            >
+              <View style={styles.row}>
+                <NotesDetail id={item.id} />
+                <TouchableOpacity onPress={() => deleteNote(item.id)}>
+                  <MaterialIcons
+                    style={styles.icon}
+                    name="delete"
+                    size={27}
+                    color="black"
+                  />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
+      <Button title="signout" onPress={() => firebase.auth().signOut()} />
+      <Button
+        title="user"
+        onPress={() => console.log(firebase.auth().currentUser)}
+      />
+      {/* </MenuDrawer> */}
     </View>
   );
 };

@@ -3,12 +3,9 @@ import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import firebase from 'firebase';
 
 const SignUpScreen = () => {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [name, setName] = useState('');
-  // const [surname, setSurame] = useState('');
+  // const [ema
   const [info, setInfo] = useState({});
-
+  const [noteData, setNoteData] = useState({});
   const addToDatabase = (info) => {
     const user = firebase.auth().currentUser;
     // console.log('********************');
@@ -47,7 +44,6 @@ const SignUpScreen = () => {
           });
         })
         .catch(function (error) {
-          // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
           if (errorCode == 'auth/weak-password') {

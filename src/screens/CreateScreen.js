@@ -7,6 +7,7 @@ const CreateScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const { addNote } = useContext(Context);
+
   return (
     <View>
       <NoteForm
