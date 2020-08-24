@@ -7,32 +7,8 @@ import NotesDetail from '../components/NotesDetails';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import firebase from 'firebase';
-import MenuDrawer from 'react-native-side-drawer';
 
 const HomeScreen = ({ navigation }) => {
-  //drawer
-
-  const [drawerState, SetDrawerState] = useState({ open: false });
-
-  const toggleOpen = () => {
-    const st = !drawerState.open;
-    SetDrawerState({ open: st });
-    console.log(drawerState.open);
-  };
-
-  const drawerContent = () => {
-    return (
-      <TouchableOpacity
-        onPress={() => firebase.auth().signOut()}
-        style={styles.animatedBox}
-      >
-        <Text>Back To home</Text>
-      </TouchableOpacity>
-    );
-  };
-
-  //
-
   const [user, setUser] = useState({});
   useEffect(() => {
     setUser(firebase.auth().currentUser);
@@ -62,14 +38,6 @@ const HomeScreen = ({ navigation }) => {
   const { state, deleteNote } = useContext(Context);
   return (
     <View>
-      {/* <MenuDrawer
-        open={state.open}
-        drawerContent={drawerContent()}
-        drawerPercentage={45}
-        animationTime={250}
-        overlay={true}
-        opacity={0.4}
-      > */}
       <Text style={styles.welcome}>Welcome {user.displayName}</Text>
 
       <FlatList
@@ -100,28 +68,23 @@ const HomeScreen = ({ navigation }) => {
         title="user"
         onPress={() => console.log(firebase.auth().currentUser)}
       />
-      {/* </MenuDrawer> */}
     </View>
   );
 };
 
-// HomeScreen.navigationOptions = ({ navigation, toggleOpen }) => {
-//   return {
-//     headerRight: () => (
-//       <TouchableOpacity
-//         style={styles.icon}
-//         onPress={() => navigation.navigate('Create')}
-//       >
-//         <AntDesign name="plussquareo" size={27} color="black" />
-//       </TouchableOpacity>
-//     ),
-//     headerLeft: () => (
-//       <TouchableOpacity style={styles.icon} onPress={() => toggleOpen()}>
-//         <MaterialIcons name="menu" size={24} color="black" />
-//       </TouchableOpacity>
-//     ),
-//   };
-// };
+HomeScreen.navigationOptions = ({ navigation, toggleOpen }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity
+        style={styles.icon}
+        onPress={() => navigation.navigate('Create')}
+      >
+        <AntDesign name="plussquareo" size={27} color="black" />
+      </TouchableOpacity>
+    ),
+    headerLeft: {},
+  };
+};
 
 const styles = StyleSheet.create({
   row: {
