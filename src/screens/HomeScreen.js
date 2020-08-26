@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
     };
   };
 
-  const { state, deleteNote } = useContext(Context);
+  const { state, deleteNote, updateFromDatabase } = useContext(Context);
   return (
     <View>
       <Text style={styles.welcome}>Welcome {user.displayName}</Text>
@@ -68,6 +68,7 @@ const HomeScreen = ({ navigation }) => {
         title="user"
         onPress={() => console.log(firebase.auth().currentUser)}
       />
+      <Button title="refresh" onPress={() => updateFromDatabase()} />
     </View>
   );
 };

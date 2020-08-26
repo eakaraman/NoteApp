@@ -17,6 +17,9 @@ const noteReducer = (state, action) => {
           content: action.payload.content,
         },
       ];
+    case 'updateFromDatabase':
+      matchDatabase();
+      return state;
     case 'deleteNote':
       deleteFromDatabase(action.payload.id);
       return state.filter((note) => note.id !== action.payload.id);
@@ -31,6 +34,20 @@ const noteReducer = (state, action) => {
       });
     default:
       return state;
+  }
+};
+
+const matchDatabase = () => {
+  if (firebase.auth().currentUser) {
+    const user = firebase.auth().currentUser;
+    firebase
+      .database()
+      .ref('users/' + user.uid + '/data')
+      .once('value')
+      .then((snapshot) => {
+        const title = snapshot.val();
+        console.log(title); //we get the object
+      });
   }
 };
 
@@ -74,6 +91,11 @@ const deleteNote = (dispatch) => {
     dispatch({ type: 'deleteNote', payload: { id } });
   };
 };
+const updateFromDatabase = (dispatch) => {
+  return () => {
+    dispatch({ type: 'updateFromDatabase', payload: {} });
+  };
+};
 
 const editNote = (dispatch) => {
   return (id, title, content, callback) => {
@@ -84,7 +106,7 @@ const editNote = (dispatch) => {
 
 export const { Context, Provider } = createNoteContext(
   noteReducer,
-  { addNote, deleteNote, editNote },
+  { addNote, deleteNote, editNote, updateFromDatabase },
   [
     { id: '1', title: 'testpost', content: 'testPostcon' },
     { id: '2', title: 'testpost2', content: 'testPostcon2' },
