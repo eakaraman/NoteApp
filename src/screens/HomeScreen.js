@@ -1,5 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import NotesList from '../components/NotesList';
 import { Context } from '../context/NoteContext';
@@ -35,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
 
   const { state, deleteNote, updateFromDatabase } = useContext(Context);
   return (
-    <View>
+    <ScrollView>
       <Text style={styles.welcome}>Welcome {user.displayName}</Text>
 
       <FlatList
@@ -67,7 +74,7 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => console.log(firebase.auth().currentUser)}
       />
       <Button title="refresh" onPress={() => updateFromDatabase()} />
-    </View>
+    </ScrollView>
   );
 };
 
