@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import createNoteContext from './createNoteContext';
 import firebase from 'firebase';
 
@@ -18,8 +18,28 @@ const noteReducer = (state, action) => {
         },
       ];
     case 'updateFromDatabase':
-      matchDatabase();
-      return state;
+      const user = firebase.auth().currentUser;
+      const temp = [];
+      firebase
+        .database()
+        .ref('users/' + user.uid + '/data')
+        .once('value')
+        .then((snapshot) => {
+          const obj = snapshot.val();
+
+          for (let [key, value] of Object.entries(obj)) {
+            // temp = [
+            //   ...temp,
+            //   { id: key, title: value.title, content: value.content }, //sıkıntı
+            // ];
+            temp.push({ id: key, title: value.title, content: value.content });
+            console.log(`${key} : ${value}`);
+          }
+
+          // console.log(title); //we get the object
+        })
+        .then(() => console.log('then'));
+      return temp;
     case 'deleteNote':
       deleteFromDatabase(action.payload.id);
       return state.filter((note) => note.id !== action.payload.id);
@@ -37,19 +57,31 @@ const noteReducer = (state, action) => {
   }
 };
 
-const matchDatabase = () => {
-  if (firebase.auth().currentUser) {
-    const user = firebase.auth().currentUser;
-    firebase
-      .database()
-      .ref('users/' + user.uid + '/data')
-      .once('value')
-      .then((snapshot) => {
-        const title = snapshot.val();
-        console.log(title); //we get the object
-      });
-  }
-};
+// const matchDatabase = () => {
+//   if (firebase.auth().currentUser) {
+//     const user = firebase.auth().currentUser;
+//       { id: 6, title: 'inside', content: 'insidecontent' },
+//     ]);
+//     firebase
+//       .database()
+//       .ref('users/' + user.uid + '/data')
+//       .once('value')
+//       .then((snapshot) => {
+//         const obj = snapshot.val();
+
+//         for (let [key, value] of Object.entries(obj)) {
+//           setState([
+//             ...state,
+//             { id: key, title: value.title, content: value.content },
+//           ]);
+//           console.log(`${key} : ${value}`);
+//         }
+
+//         // console.log(title); //we get the object
+//       });
+//     return state;
+//   }
+// };
 
 const deleteFromDatabase = (id) => {
   const user = firebase.auth().currentUser;
