@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import NotesList from '../components/NotesList';
 import { Context } from '../context/NoteContext';
 import NotesDetail from '../components/NotesDetails';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import firebase from 'firebase';
 
 const HomeScreen = ({ navigation }) => {
@@ -25,11 +26,8 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       ),
       headerLeft: () => (
-        <TouchableOpacity
-          style={styles.icon}
-          onPress={() => console.log('asd')}
-        >
-          <MaterialIcons name="menu" size={24} color="black" />
+        <TouchableOpacity style={styles.icon} onPress={() => signOut()}>
+          <FontAwesome name="sign-out" size={24} color="black" />
         </TouchableOpacity>
       ),
     };
@@ -63,7 +61,7 @@ const HomeScreen = ({ navigation }) => {
           );
         }}
       />
-      <Button title="signout" onPress={() => firebase.auth().signOut()} />
+
       <Button
         title="user"
         onPress={() => console.log(firebase.auth().currentUser)}
@@ -73,18 +71,20 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-HomeScreen.navigationOptions = ({ navigation, toggleOpen }) => {
-  return {
-    headerRight: () => (
-      <TouchableOpacity
-        style={styles.icon}
-        onPress={() => navigation.navigate('Create')}
-      >
-        <AntDesign name="plussquareo" size={27} color="black" />
-      </TouchableOpacity>
-    ),
-    headerLeft: () => {},
-  };
+const signOut = () => {
+  Alert.alert(
+    'Sign Out',
+    'Are you sure you want to sign out?',
+    [
+      {
+        text: 'Yes',
+        onPress: () => firebase.auth().signOut(),
+      },
+
+      { text: 'No', onPress: () => console.log('No Pressed') },
+    ],
+    { cancelable: true }
+  );
 };
 
 const styles = StyleSheet.create({

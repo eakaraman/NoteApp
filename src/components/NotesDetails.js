@@ -9,8 +9,10 @@ const NotesDetail = ({ id }) => {
 
   return (
     <View style={styles.container}>
-      <Text>NotesDetail --- {note.title}</Text>
-      <Text>{note.content}</Text>
+      <Text style={styles.text}>
+        Title {'=>'} {note.title}
+      </Text>
+      <Text style={styles.text}>{note.content}</Text>
     </View>
   );
 };
@@ -18,6 +20,10 @@ const NotesDetail = ({ id }) => {
 const styles = StyleSheet.create({
   container: {
     marginLeft: 6,
+  },
+  text: {
+    fontSize: 16,
+    marginHorizontal: 5,
   },
 });
 
