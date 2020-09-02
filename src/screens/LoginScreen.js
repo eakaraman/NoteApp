@@ -153,7 +153,10 @@ const LoginScreen = ({ navigation }) => {
         onPress={() => signInWithGoogleAsync()}
       />
       <Button title="sgn up" onPress={() => navigation.navigate('Signup')} />
-      <MyButton title="sign Up" onPress={() => console.log('button')} />
+      <MyButton
+        title="sign in With Google"
+        onPress={() => console.log('button')}
+      />
     </View>
   );
 };

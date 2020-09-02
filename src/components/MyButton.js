@@ -1,25 +1,44 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 
+const { width, height } = Dimensions.get('window');
 const MyButton = ({ onPress, title }) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
+    <View style={styles.containerView}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
+        <Text style={styles.text}>{title}</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  containerView: {
+    flexDirection: 'row-reverse',
+  },
   container: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    borderWidth: 1,
     marginHorizontal: 20,
-    borderRadius: 5,
+    marginVertical: 10,
+    borderRadius: 3,
+    height: height / 20,
+    width: width / 2,
+    //marginLeft: 280,
   },
   text: {
+    borderWidth: 1,
+    borderRadius: 3,
+    borderColor: 'red',
     fontSize: 18,
     color: '#3276C1',
-    textDecorationLine: 'underline',
+    textDecorationLine: 'none',
   },
 });
 

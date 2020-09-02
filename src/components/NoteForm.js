@@ -6,6 +6,16 @@ import { Context } from '../context/NoteContext';
 const { height, width } = Dimensions;
 
 const NoteForm = ({ onSubmit, initialValues }) => {
+  const UselessTextInput = (props) => {
+    return (
+      <TextInput
+        {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
+        editable
+        maxLength={40}
+      />
+    );
+  };
+
   const [title, setTitle] = useState(initialValues.title);
   const [content, setContent] = useState(initialValues.content);
   return (
@@ -19,6 +29,7 @@ const NoteForm = ({ onSubmit, initialValues }) => {
       <Text>Content</Text>
       <View style={styles.textInputView}>
         <TextInput
+          textAlignVertical="top"
           multiline
           editable
           style={styles.contentInput}
@@ -41,7 +52,6 @@ NoteForm.defaultProps = {
 const styles = StyleSheet.create({
   textInputView: {
     borderWidth: 3,
-
     height: 160,
   },
   input: {
@@ -50,6 +60,7 @@ const styles = StyleSheet.create({
   },
   contentInput: {
     paddingLeft: 5,
+    flex: 1,
   },
   container: {
     padding: 15,
