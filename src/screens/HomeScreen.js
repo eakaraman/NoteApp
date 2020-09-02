@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, Component } from 'react';
 import {
   View,
   Text,
@@ -18,6 +18,7 @@ import firebase from 'firebase';
 
 const HomeScreen = ({ navigation }) => {
   const [user, setUser] = useState({});
+  const [number, setNumber] = useState(1);
   useEffect(() => {
     setUser(firebase.auth().currentUser);
   });
@@ -41,10 +42,13 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const { state, deleteNote, updateFromDatabase } = useContext(Context);
+
+  //  updateFromDatabase();
+
   return (
     <ScrollView>
       <Text style={styles.welcome}>Welcome {user.displayName}</Text>
-
+      <Text>number {number}</Text>
       <FlatList
         data={state}
         keyExtractor={(data) => data.id}
@@ -73,7 +77,15 @@ const HomeScreen = ({ navigation }) => {
         title="user"
         onPress={() => console.log(firebase.auth().currentUser)}
       />
-      <Button title="refresh" onPress={() => updateFromDatabase()} />
+      <Button
+        title="refresh"
+        onPress={() => {
+          updateFromDatabase();
+          setTimeout(() => {
+            setNumber(2);
+          }, 2000);
+        }}
+      />
     </ScrollView>
   );
 };

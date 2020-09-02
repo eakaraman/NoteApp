@@ -17,6 +17,8 @@ const LoadingScreen = ({ navigation }) => {
       function (user) {
         //console.log('*******user**********', user);
         if (user) {
+          console.log('********************');
+          // updateFromDatabase();
           navigation.navigate('Home');
         } else navigation.navigate('Login');
       }.bind(this)

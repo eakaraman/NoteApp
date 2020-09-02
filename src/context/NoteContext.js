@@ -33,7 +33,7 @@ const noteReducer = (state, action) => {
             //   { id: key, title: value.title, content: value.content }, //sıkıntı
             // ];
             temp.push({ id: key, title: value.title, content: value.content });
-            console.log(`${key} : ${value}`);
+            //console.log(`${key} : ${value}`);
           }
 
           // console.log(title); //we get the object
