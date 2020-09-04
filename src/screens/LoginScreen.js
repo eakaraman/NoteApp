@@ -143,16 +143,16 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={(text) => setPassword(text)}
         style={styles.input}
       />
-      <Button
+      <MyButton
         title="sign In"
         onPress={() => signinWithEmail(email, password)}
       />
-      <Button
+      <MyButton
         style={styles.button}
         title="sign in google"
         onPress={() => signInWithGoogleAsync()}
       />
-      <Button title="sgn up" onPress={() => navigation.navigate('Signup')} />
+      <MyButton title="sgn up" onPress={() => navigation.navigate('Signup')} />
       <MyButton
         title="sign in With Google"
         onPress={() => console.log('button')}

@@ -16,6 +16,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import firebase from 'firebase';
+import { FloatingAction } from 'react-native-floating-action';
+
 import MyButton from '../components/MyButton';
 
 const HomeScreen = ({ navigation }) => {
@@ -46,11 +48,19 @@ const HomeScreen = ({ navigation }) => {
   const { state, deleteNote, updateFromDatabase } = useContext(Context);
 
   //  updateFromDatabase();
+  const actions = [
+    {
+      text: 'Refresh',
+      icon: require('../../assets/refresh.png'),
+      name: 'refresh',
+      position: 1,
+    },
+  ];
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
+    <View style={{ flex: 1 }}>
       <Text style={styles.welcome}>Welcome {user.displayName}</Text>
-      <Text>number {number}</Text>
+      {/* <Text>number {number}</Text> */}
       <FlatList
         style={{ marginBottom: 5 }}
         horizontal={false}
@@ -77,7 +87,7 @@ const HomeScreen = ({ navigation }) => {
         }}
       />
 
-      <MyButton
+      {/* <MyButton
         title="user"
         onPress={() => console.log(firebase.auth().currentUser)}
       />
@@ -89,8 +99,22 @@ const HomeScreen = ({ navigation }) => {
             setNumber(number + 1);
           }, 2000);
         }}
+      /> */}
+      <FloatingAction
+        actions={actions}
+        onPressItem={(name) => {
+          switch (name) {
+            case 'refresh':
+              updateFromDatabase();
+              setTimeout(() => {
+                setNumber(number + 1);
+              }, 2500);
+            default:
+              console.log('buttonpassed');
+          }
+        }}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
