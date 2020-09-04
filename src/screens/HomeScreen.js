@@ -6,6 +6,7 @@ import {
   Button,
   Alert,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import NotesList from '../components/NotesList';
@@ -15,6 +16,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import firebase from 'firebase';
+import MyButton from '../components/MyButton';
 
 const HomeScreen = ({ navigation }) => {
   const [user, setUser] = useState({});
@@ -46,10 +48,12 @@ const HomeScreen = ({ navigation }) => {
   //  updateFromDatabase();
 
   return (
-    <View>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
       <Text style={styles.welcome}>Welcome {user.displayName}</Text>
       <Text>number {number}</Text>
       <FlatList
+        style={{ marginBottom: 5 }}
+        horizontal={false}
         data={state}
         keyExtractor={(data) => data.id}
         renderItem={({ item }) => {
@@ -73,11 +77,11 @@ const HomeScreen = ({ navigation }) => {
         }}
       />
 
-      <Button
+      <MyButton
         title="user"
         onPress={() => console.log(firebase.auth().currentUser)}
       />
-      <Button
+      <MyButton
         title="refresh"
         onPress={() => {
           updateFromDatabase();
@@ -86,7 +90,7 @@ const HomeScreen = ({ navigation }) => {
           }, 2000);
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -107,6 +111,7 @@ const signOut = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {},
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',

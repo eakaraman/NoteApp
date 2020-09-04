@@ -26,13 +26,20 @@ const LoadingScreen = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <Text>Loading</Text>
+    <View style={styles.container}>
       <ActivityIndicator size="large" />
+      <Text style={{ alignSelf: 'center' }}>Loading</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    alignContent: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
 
 export default LoadingScreen;
