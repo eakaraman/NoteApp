@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
   //  updateFromDatabase();
 
   return (
-    <ScrollView>
+    <View>
       <Text style={styles.welcome}>Welcome {user.displayName}</Text>
       <Text>number {number}</Text>
       <FlatList
@@ -82,11 +82,11 @@ const HomeScreen = ({ navigation }) => {
         onPress={() => {
           updateFromDatabase();
           setTimeout(() => {
-            setNumber(2);
+            setNumber(number + 1);
           }, 2000);
         }}
       />
-    </ScrollView>
+    </View>
   );
 };
 
