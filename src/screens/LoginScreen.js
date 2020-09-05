@@ -11,6 +11,8 @@ const LoginScreen = ({ navigation }) => {
       const result = await Google.logInAsync({
         androidClientId:
           '644574779457-75sjkl5flnh5ikqvbnpoqp04dc27pu9n.apps.googleusercontent.com',
+        webClientId:
+          '644574779457-hi0fgqbdhmsk3jqfkmjg7kqal6en56fe.apps.googleusercontent.com',
         //behavior: 'web',
         //iosClientId: YOUR_CLIENT_ID_HERE,
         scopes: ['profile', 'email'],
@@ -144,19 +146,15 @@ const LoginScreen = ({ navigation }) => {
         style={styles.input}
       />
       <MyButton
-        title="sign In"
+        title="Sign In"
         onPress={() => signinWithEmail(email, password)}
       />
       <MyButton
         style={styles.button}
-        title="sign in google"
+        title="Sign in With Google"
         onPress={() => signInWithGoogleAsync()}
       />
-      <MyButton title="sgn up" onPress={() => navigation.navigate('Signup')} />
-      <MyButton
-        title="sign in With Google"
-        onPress={() => console.log('button')}
-      />
+      <MyButton title="Sign up" onPress={() => navigation.navigate('Signup')} />
     </View>
   );
 };
@@ -164,8 +162,7 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'red',
+
     justifyContent: 'center',
   },
   input: {

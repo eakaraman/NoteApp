@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import firebase from 'firebase';
+import MyButton from '../components/MyButton';
 
 const SignUpScreen = () => {
   // const [ema
@@ -58,7 +59,6 @@ const SignUpScreen = () => {
 
   return (
     <View>
-      <Text>Signnup</Text>
       <Text style={styles.text}>Name</Text>
       <TextInput
         value={info.name}
@@ -85,7 +85,7 @@ const SignUpScreen = () => {
         style={styles.input}
       />
 
-      <Button title="sign Up" onPress={() => signUp(info)} />
+      <MyButton title="Sign Up" onPress={() => signUp(info)} />
     </View>
   );
 };
@@ -93,8 +93,9 @@ const SignUpScreen = () => {
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
+    marginHorizontal: 5,
   },
-  text: { fontSize: 20 },
+  text: { fontSize: 20, marginHorizontal: 5 },
 });
 
 export default SignUpScreen;
