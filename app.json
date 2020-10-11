@@ -22,7 +22,13 @@
     },
     "android": {
       "package": "com.eakaraman.NoteApp",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyAH4R12G73ikTuj3Dyu0KqF2HOCN_SHPLo",
+          "certificateHash": "7335CDD388DD3CCD044D97104CB2C59A6435E3B1"
+        }
+      }
     }
   }
 }

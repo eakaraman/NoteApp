@@ -10,9 +10,11 @@ const LoginScreen = ({ navigation }) => {
     try {
       const result = await Google.logInAsync({
         androidClientId:
-          '644574779457-75sjkl5flnh5ikqvbnpoqp04dc27pu9n.apps.googleusercontent.com',
+          '644574779457-onm7iv56t4tgnao8gcbr2rljropugpo8.apps.googleusercontent.com',
         webClientId:
-          '644574779457-hi0fgqbdhmsk3jqfkmjg7kqal6en56fe.apps.googleusercontent.com',
+          '644574779457-3k8107fsqf7ofsqk6695blppgkdlf243.apps.googleusercontent.com',
+        androidStandaloneAppClientId:
+          '644574779457-67ctdpabqmkmua68cvojrspk5knqgvh8.apps.googleusercontent.com',
         //behavior: 'web',
         //iosClientId: YOUR_CLIENT_ID_HERE,
         scopes: ['profile', 'email'],
